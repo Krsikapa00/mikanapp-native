@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import PunchCameraDisplay from '../Components/PunchComponent/PunchCameraDisplay'
-import PunchRecipt from '../Components/PunchComponent/PunchRecipt';
+import PunchCameraDisplay from '../Components/RecordPunchComponent/PunchCameraDisplay'
+import PunchRecipt from '../Components/RecordPunchComponent/PunchRecipt';
 export default class PunchOut extends Component {
     constructor(props) {
         super(props);
         this.state = {
            route: 'scanning',
            punch: {},
-           user: navigation.getParams('user', 'Not Signed in')
+           user: this.props.navigation.getParam('user', 'Not Signed in')
         }
     }
 
@@ -17,10 +17,11 @@ export default class PunchOut extends Component {
     }
 
     render() {
-        const { route, punch } = this.state;
+        const { route, punch, user } = this.state;
 
         if (route === 'scanning') {
-            return ( <PunchCameraDisplay onPunchRouteChange={this.onPunchRouteChange} Inout={'IN'} />)
+            alert(this.state.user.id)
+            return ( <PunchCameraDisplay onPunchRouteChange={this.onPunchRouteChange} user={user.id} Inout={'IN'} />)
         }
         else if (punch.id && route ==='recipt') {
             return (

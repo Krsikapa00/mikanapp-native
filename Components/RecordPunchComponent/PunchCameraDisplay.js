@@ -9,7 +9,6 @@ export default class PunchCameraDisplay extends Component {
         this.state = {
             hasCameraPermission: null,
             scanned: false,
-            userID: 1,
         }
     }
 
@@ -49,10 +48,10 @@ export default class PunchCameraDisplay extends Component {
 
     handleBarCodeScanned = async({ type, data }) => {
         //type is the type of code scanned and data is value
-        const { userID } = this.state;
-        const { Inout } = this.props;
+        const { Inout, user } = this.props;
         this.setState({scanned: true})
-        punchResponse = await CreatePunch(data, userID, Inout)
+        
+        punchResponse = await CreatePunch(data, user, Inout)
         
         if (punchResponse.id){
             alert(punchResponse.location)
@@ -66,37 +65,6 @@ export default class PunchCameraDisplay extends Component {
         
         // alert(data);
     };
-
-    LocationCheck = async (data) => {
-        const { user, locationcode, locationname, inout } = this.state;
-
-            const response = await fetch('https://mikan-app-api.herokuapp.com/locationscheck', {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        location: data
-                    })
-            })
-            .then(response => response.json())
-            .catch(err => {
-                alert("3")
-                return null  
-            });
-
-            if (!response.id) {
-                alert(resp)
-            } else {
-                alert("yes")
-                
-                this.setState({locationcode: resp.code, locationname: resp.name, scanned: true})
-                // this.props.onRouteChange('recipt')
-            }
-    }
-    
-    
-
 }
  
 

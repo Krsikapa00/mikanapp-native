@@ -1,24 +1,15 @@
-import React, { Component } from "react";
-import { 
-    View,
-    Text,
-    StyleSheet
-} from "react-native";
-
 const CreatePunch = async (data, userID, inout) => {
 
-    let punchValue = 'yes'
     const locationInformation = await LocationCheck(data)
     // alert(locationInformation.locationCode)
  
-
     if (locationInformation.locationCode == data) {
         alert("yes")
         const punchResponse = await PunchSubmit(userID, inout, locationInformation.locationName, locationInformation.locationCode)
         if (punchResponse.id) {
             return punchResponse;
         } else {
-            return 'Did not work'
+            return punchResponse;
         }
         
     } else {
@@ -26,14 +17,15 @@ const CreatePunch = async (data, userID, inout) => {
     }    
 }
 
-
 const PunchSubmit = async (userID, inout, locationname, locationcode ) => {
         const date = getDate();
         const actual_date = getActualDate();
         const time = getTime();
         const response = await fetch(`https://mikan-app-api.herokuapp.com/recordpunch${inout}`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: userID,
                 location: locationcode,
@@ -44,7 +36,7 @@ const PunchSubmit = async (userID, inout, locationname, locationcode ) => {
             })
         })
         .then(resp => resp.json())
-        .catch(err => console.log(err));
+        .catch(err => {alert(err)});
 
         if (response.id) {
             if (response.id == userID) {
@@ -55,7 +47,6 @@ const PunchSubmit = async (userID, inout, locationname, locationcode ) => {
         } else {
             return response
         }
-
 }
 
 const LocationCheck = async (data) => {
@@ -74,7 +65,6 @@ const LocationCheck = async (data) => {
             alert("3")
             return err  
         });
-
         if (!response.id) {
             const resp = { locationCode: null}
             return resp
@@ -103,13 +93,4 @@ const getTime = () => {
     return date;
 }
 
-
 export default CreatePunch;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});
