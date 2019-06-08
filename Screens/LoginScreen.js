@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, TextInput, StyleSheet, Button, AsyncStorage } from 'react-native';
 import TextInputComp from '../Components/TextInputComp';
+import onStoreData from '../Components/AsyncFunctions/StoreData';
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -13,6 +14,11 @@ class LoginScreen extends Component {
            LoginUsername: '',
            LoginPassowrd: '',
         }
+        this.focusNextField = this.focusNextField.bind(this);
+        this.inputs = {};
+    }
+    focusNextField(id) {
+        this.inputs[id].focus();
     }
 
     onSetUsername = (text) =>{
@@ -22,6 +28,8 @@ class LoginScreen extends Component {
     onSetPassword = (text) =>{
         this.setState({LoginPassowrd: text})
     }
+
+   
 
     onSubmitLogin = () => {
         fetch('https://mikan-app-api.herokuapp.com/signin', {
@@ -37,10 +45,14 @@ class LoginScreen extends Component {
         .then(response => response.json())
         .then(user => {
             if (user.id) {
-                this.props.navigation.navigate
-                    ('DrawerNavigator', {
-                        user: user
-                    })
+                if (onStoreData('user', user)){
+                    if (user.admin)
+                        this.props.navigation.navigate('AdminDrawerNavigator')
+                    else {
+                        this.props.navigation.navigate('DrawerNavigator')
+                    }
+                }
+
             } else alert('Login did not work. Try again')
         })
         .catch(err => alert(err));
@@ -49,9 +61,22 @@ class LoginScreen extends Component {
     render() {
         return (
             <View style={styles.container} >
-                <TextInputComp contentType='username' onChangeText={this.onSetUsername} />
-                <TextInputComp contentType='password' onChangeText={this.onSetPassword} Secure={true} />
-
+                <TextInput
+                    style={styles.Textinput}
+                    onChangeText={(text) => {this.onSetUsername(text)}}
+                    textContentType={'username'}
+                    returnKeyType={'next'}
+                    onSubmitEditing={() => {this.focusNextField('two')}}
+                    onBlur={()=> false}
+                />
+                <TextInput
+                    ref={ input => { this.inputs['two'] = input}}
+                    style={styles.Textinput}
+                    onChangeText={(text) => {this.onSetPassword(text)}}
+                    textContentType={'password'}
+                    secureTextEntry={true}
+                   
+                />
                 <Button style={styles.buttons} title="Complete Log in" onPress={this.onSubmitLogin} /> 
             </View>
         )
@@ -72,6 +97,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         margin: 10
-      }
+    },
+    Textinput: {
+        height: 30,
+        width: 200,
+        borderColor: 'gray',
+        borderWidth: 1,
+        margin: 20,
+    }
+
   })
   

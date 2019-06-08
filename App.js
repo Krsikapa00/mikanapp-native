@@ -1,17 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import LoginScreen from './Screens/LoginScreen';
 import DrawerNavigator from './Screens/DrawerNavigation';
+import AdminDrawerNavigator from './Screens/AdminDrawerNavigator';
 
 
-const AppStackNavigator = createStackNavigator({
+const AppStackNavigator = createSwitchNavigator({
   LoginScreen: { screen: LoginScreen },
-  DrawerNavigator: {screen: DrawerNavigator} 
-},  {
-  navigationOptions:{
-    gesturesEnabled: false
-  }
+  DrawerNavigator: {screen: DrawerNavigator} ,
+  AdminDrawerNavigator: {screen: AdminDrawerNavigator}
+
+},
+{
+  initialRouteName: 'LoginScreen',
 })
 
 const AppContainer = createAppContainer(AppStackNavigator)

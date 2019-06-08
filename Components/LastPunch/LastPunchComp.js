@@ -32,7 +32,12 @@ class LastPunch extends Component {
                     <AdminLastPunch PunchArray={adminLastPunch} />
                 )
             } else {
-                return (<SinglePunch Punch={lastPunch} />)
+                return (
+                    <View style={styles.container}>
+                        <Text style={styles.text}>Last Punch</Text>
+                        <SinglePunch Punch={lastPunch} />
+                    </View>
+                )
             }
         } else {
            return (
@@ -46,6 +51,10 @@ class LastPunch extends Component {
 export default LastPunch;
 
 const styles = StyleSheet.create({
+    text: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     container: {
         flex: 1,
         alignItems: 'center',

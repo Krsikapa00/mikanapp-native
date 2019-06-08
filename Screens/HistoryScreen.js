@@ -2,23 +2,19 @@ import React, { Component } from "react";
 import { 
     View,
     Text,
-    StyleSheet,
-    FlatList
+    StyleSheet
 } from "react-native";
-import ListofPunches from "../ListofPunchesComp";
 
-
-class AdminLastPunch extends Component {
-
+class HistoryScreen extends Component {
     render() {
-        const { PunchArray } = this.props;
-        
         return (
-            <ListofPunches PunchArray={PunchArray} />
+            <View style={styles.container}>
+                <Text>HistoryScreen</Text>
+            </View>
         );
     }
 }
-export default AdminLastPunch;
+export default HistoryScreen;
 
 const styles = StyleSheet.create({
     container: {

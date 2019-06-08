@@ -9,7 +9,7 @@ const SinglePunch = ({Punch}) =>{
     if (out_date  === null) {
         out_date = 'N/A';
         out_time = 'N/A';
-        difference = 'N/A';
+        difference = 0;
     }
         return (
         <View style={styles.container}>
@@ -26,12 +26,15 @@ const SinglePunch = ({Punch}) =>{
 export default SinglePunch;
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        width: 300,
         borderColor: 'gray',
         borderWidth: 1,
-        margin: 20,
+        padding: 20,
+        marginTop: 5,
+        marginBottom: 25,
+        shadowColor: 'gray',
 
     }
 });

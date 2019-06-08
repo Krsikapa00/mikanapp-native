@@ -8,7 +8,6 @@ export default class PunchOut extends Component {
         this.state = {
            route: 'scanning',
            punch: {},
-           user: this.props.navigation.getParam('user', 'Not Signed in')
         }
     }
 
@@ -17,10 +16,10 @@ export default class PunchOut extends Component {
     }
 
     render() {
-        const { route, punch, user } = this.state;
+        const { route, punch } = this.state;
 
         if (route === 'scanning') {
-            return ( <PunchCameraDisplay onPunchRouteChange={this.onPunchRouteChange} user={user.id} Inout={'OUT'} />)
+            return ( <PunchCameraDisplay onPunchRouteChange={this.onPunchRouteChange} Inout={'OUT'} />)
         }
         else if (punch.id && route ==='recipt') {
             return (

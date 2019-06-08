@@ -5,16 +5,16 @@ import {
     StyleSheet
 } from "react-native";
 
-class History extends Component {
+class LocationScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>History</Text>
+                <Text>LocationScreen</Text>
             </View>
         );
     }
 }
-export default History;
+export default LocationScreen;
 
 const styles = StyleSheet.create({
     container: {

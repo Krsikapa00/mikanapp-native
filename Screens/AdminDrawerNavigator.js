@@ -6,18 +6,27 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import PunchIn from './PunchIn';
 import PunchOut from './PunchOut';
 import History from './HistoryScreen';
+import Users from './UsersScreen';
+import Locations from './LocationScreen';
 
+const onSignOut = async () => {
+  await AsyncStorage.clear();
+  this.props.navigation.navigate('LoginScreen')
+}
 
 const AppDrawerNavigator = createDrawerNavigator({
     HomeScreen: {screen: HomeScreen},
     PunchIn: {screen: PunchIn},
     PunchOut: {screen: PunchOut},
-    History: {screen: History}    
+    History: {screen: History}, 
+    Users: {screen: Users},
+    Locations: {screen: Locations}
+
+    
 },  {
   navigationOptions: ({ navigation }) => ({
-    headerTitle: <Text>Welcome</Text>,
+    headerTitle: <Text>Mikan App</Text>,
     headerLeft: (
-
       <View style={{ padding: 10 }}>
         <Ionicons name="md-menu" size={24} onPress={() => navigation.toggleDrawer()} />
       </View>
@@ -31,6 +40,7 @@ const AppDrawerNavigator = createDrawerNavigator({
         }} />
       </View>
     )
+    
   })
 })
 
@@ -48,4 +58,3 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     }
   })
-  

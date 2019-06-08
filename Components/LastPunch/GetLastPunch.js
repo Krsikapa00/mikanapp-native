@@ -1,10 +1,3 @@
-import React, { Component } from "react";
-import { 
-    View,
-    Text,
-    StyleSheet
-} from "react-native";
-
 const GetLastPunch = async(user) => { 
     let lastPunch = null;       
     if (user.admin){
@@ -94,11 +87,3 @@ const getUserList = async (adminuser) =>{
 
     return userArray;
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});

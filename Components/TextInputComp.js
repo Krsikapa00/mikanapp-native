@@ -15,6 +15,7 @@ class TextInputComp extends Component {
                     onChangeText={(text) => {this.props.onChangeText(text)}}
                     textContentType={this.props.contentType}
                     secureTextEntry={this.props.Secure}
+                    returnKeyType={this.props.returnKeyType}
                 />
             </View>
         );
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
         height: 30,
         width: 200,
         borderColor: 'gray',
-        borderWidth: 1
+        borderWidth: 1,
+        margin: 20,
     }
 });
