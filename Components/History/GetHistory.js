@@ -1,7 +1,5 @@
-
-
 const GetLastPunch = async(user) => { 
-    let lastPunch = null;       
+    let historyResponse = null;       
     if (user.admin){
         const adminUserArray = await getUserList(user)
         if (adminUserArray[0].id){
@@ -15,3 +13,4 @@ const GetLastPunch = async(user) => {
 }
 
 export default GetLastPunch;
+
